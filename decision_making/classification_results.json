@@ -1,0 +1,121 @@
+{
+    "number_of_datapoints": 10019,
+    "number_of_labels": 24,
+    "occurance_of_labels": [
+        [
+            "Lawyer",
+            157
+        ],
+        [
+            "Puns",
+            457
+        ],
+        [
+            "News / Politics",
+            279
+        ],
+        [
+            "Yo Momma",
+            600
+        ],
+        [
+            "Tech",
+            151
+        ],
+        [
+            "Blond",
+            598
+        ],
+        [
+            "Insults",
+            276
+        ],
+        [
+            "Blonde",
+            1
+        ],
+        [
+            "At Work",
+            288
+        ],
+        [
+            "One Liners",
+            917
+        ],
+        [
+            "Animal",
+            656
+        ],
+        [
+            "Other / Misc",
+            2305
+        ],
+        [
+            "College",
+            131
+        ],
+        [
+            "Redneck",
+            241
+        ],
+        [
+            "Religious",
+            402
+        ],
+        [
+            "Men / Women",
+            925
+        ],
+        [
+            "Children",
+            605
+        ],
+        [
+            "Bar",
+            154
+        ],
+        [
+            "Gross",
+            254
+        ],
+        [
+            "Knock-Knock",
+            167
+        ],
+        [
+            "Yo Mama",
+            3
+        ],
+        [
+            "Sports",
+            134
+        ],
+        [
+            "Lightbulb",
+            110
+        ],
+        [
+            "Medical",
+            208
+        ]
+    ],
+    "category_in_title": 607,
+    "not_outlier_categories": [
+        "Puns",
+        "News / Politics",
+        "Yo Momma",
+        "Blond",
+        "Insults",
+        "At Work",
+        "One Liners",
+        "Animal",
+        "Other / Misc",
+        "Redneck",
+        "Religious",
+        "Men / Women",
+        "Children",
+        "Gross",
+        "Medical"
+    ],
+    "number_of_non_outliers": 15
+}
