@@ -52,16 +52,15 @@ if __name__ == "__main__":
         - Tokenizing words
     
     Regression result:
-    - Enough data (ove 190k)
-    - There are outliers in results: I would use 68-95-99.7 rule
-    
-    Preprocessing steps:
-        - String:
-            - Data filtering based on label outliers
-            - Cleaning strings from non understandable chars, substrings such as \n, $ sign.
-            - Stopping word cleaning also could be used e.g. he, she, don't, but in case of "Blond" category it could be useful
-            - Tokenizing words
-        - Numbers:
-            - Use 68-95-99.7 rule, drop the given records
-            - The distribution of data is kind of Lognormal, I would use PowerTransformer, and MinMaxScaler
+        - Enough data (ove 190k)
+        - There are outliers in results: I would use 68-95-99.7 rule
+        
+        Preprocessing steps:
+            - String:
+                - Cleaning strings from non understandable chars, substrings such as \n, $ sign.
+                - Stopping word cleaning also could be used e.g. he, she, don't, but in case of "Blond" category it could be useful
+                - Tokenizing words
+            - Numbers:
+                - Use 68-95-99.7 rule, drop the given records
+                - The distribution of data is kind of Lognormal, I would use PowerTransformer, and MinMaxScaler
     """
