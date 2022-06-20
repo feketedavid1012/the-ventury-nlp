@@ -1,6 +1,7 @@
 import os
 import pickle
 import pandas as pd
+from typing import Any
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
 
@@ -30,8 +31,19 @@ def one_hot_encoding(data_path: str = "E:\\Austria\\the-ventury-nlp\\data\\clean
              category_validation, body_test, category_test]
     splits = ["train", "validation", "test"]
     for idx, val in enumerate(splits):
-        with open(os.path.join(path_to_save, val + "_title_" + str(title_needed) + ".pickle"), 'wb') as handle:
-            pickle.dump(datas[idx*2:((idx+1)*2)], handle,
+        filepath = os.path.join(path_to_save, val + "_title_" + str(title_needed) + ".pickle")
+        variable_to_save = datas[idx*2:((idx+1)*2)]
+        save_pickle(filepath, variable_to_save)
+
+def save_pickle(filepath: str, variable_to_save: Any):
+    """Saving variables to pickle
+
+    Args:
+        filepath (str): Path to save
+        variable_to_save (Any): Variable to save
+    """    
+    with open(filepath, 'wb') as handle:
+            pickle.dump(variable_to_save, handle,
                         protocol=pickle.HIGHEST_PROTOCOL)
 
 
