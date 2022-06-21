@@ -6,8 +6,8 @@ from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
 
 
-def one_hot_encoding(data_path: str = "E:\\Austria\\the-ventury-nlp\\data\\cleaned_classification.csv", path_to_save: str = "E:\\Austria\\the-ventury-nlp\\data\\splits", title_needed: bool = False):
-    """Create One-Hot-Encoded data from categorical values.
+def create_splits(data_path: str = "E:\\Austria\\the-ventury-nlp\\data\\cleaned\\cleaned_classification.csv", path_to_save: str = "E:\\Austria\\the-ventury-nlp\\data\\splits", title_needed: bool = False):
+    """Creates train-test-split and saves it to pickle .
 
     Args:
         data_path (str, optional): Path to cleaned data. Defaults to "E:\\Austria\\the-ventury-nlp\\data\\cleaned_classification.csv".
@@ -16,24 +16,28 @@ def one_hot_encoding(data_path: str = "E:\\Austria\\the-ventury-nlp\\data\\clean
     """
     data = pd.read_csv(data_path)
     data = shuffle(data)
-    categorical = data["category"]
-    categorical = pd.get_dummies(categorical)
+    categorical = pd.DataFrame(data["category"],columns=["category"])
     if title_needed:
         inputs = data[["body", "title"]]
     else:
-        inputs = data["body"]
+        inputs = pd.DataFrame(data["body"],columns=["body"])
     body_train, body_test, category_train, category_test = splitting(
         inputs, categorical, test_size=0.3, random_state=42)
     body_validation, body_test, category_validation, category_test = splitting(
         body_test, category_test, test_size=0.5, random_state=42)
 
-    datas = [body_train, category_train, body_validation,
-             category_validation, body_test, category_test]
+    train_set=pd.concat([body_train,category_train],axis=1)
+    validation_set=pd.concat([body_validation,category_validation],axis=1)
+    test_set=pd.concat([body_test,category_test],axis=1)
+    
+    datas=[train_set,validation_set,test_set]
     splits = ["train", "validation", "test"]
     for idx, val in enumerate(splits):
-        filepath = os.path.join(path_to_save, val + "_title_" + str(title_needed) + ".pickle")
-        variable_to_save = datas[idx*2:((idx+1)*2)]
-        save_pickle(filepath, variable_to_save)
+        if "stopping_worded" in data_path:
+            filepath = os.path.join(path_to_save, val + "_title_" + str(title_needed)+ "_stopping_worded_" + ".pickle")
+        else:
+            filepath = os.path.join(path_to_save, val + "_title_" + str(title_needed) + ".pickle")
+        save_pickle(filepath, datas[idx])
 
 def save_pickle(filepath: str, variable_to_save: Any):
     """Saving variables to pickle
@@ -63,4 +67,4 @@ def splitting(inputs: pd.DataFrame, outputs: pd.DataFrame, *args, **kwargs) -> t
 
 
 if __name__ == "__main__":
-    one_hot_encoding()
+    create_splits("E:\\Austria\\the-ventury-nlp\\data\\cleaned\\cleaned_classification_stopping_worded.csv")
