@@ -13,7 +13,7 @@ def read_json(filepath: str):
     dataset = open(filepath)
     return json.load(dataset)
 
-def run_analyze(cls_filepath: str="./data/classification.json", reg_filepath: str="./data/regression.json"):
+def run_analyze(cls_filepath: str="./data/raw/classification.json", reg_filepath: str="./data/raw/regression.json"):
     """Generate statistics about databases
 
     Args:
