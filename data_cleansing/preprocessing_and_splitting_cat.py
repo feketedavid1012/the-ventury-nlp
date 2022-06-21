@@ -33,6 +33,7 @@ def create_splits(data_path: str = "E:\\Austria\\the-ventury-nlp\\data\\cleaned\
     datas=[train_set,validation_set,test_set]
     splits = ["train", "validation", "test"]
     for idx, val in enumerate(splits):
+      
         if "stopping_worded" in data_path:
             filepath = os.path.join(path_to_save, val + "_title_" + str(title_needed)+ "_stopping_worded_" + ".pickle")
         else:
