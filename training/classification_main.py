@@ -59,4 +59,3 @@ save_confusion_matrix(original_data, maxed_predictions, os.path.join(MODEL_PATH,
 
 model.save(os.path.join(MODEL_PATH,"model",MODEL_FOLDER))
 
-

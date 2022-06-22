@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-
 def save_plot(path: str, history: Any, acc_or_loss: str = "accuracy"):
     """Plot the given history.
 
