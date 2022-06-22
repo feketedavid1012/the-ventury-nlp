@@ -17,7 +17,7 @@ class NLPHyperModel(HyperModel):
             patience (int): Early stopping patience.
         """
         self.outp_shape = outp_shape
-        self.network_parameters = epochs
+        self.epochs = epochs
         self.maxlen = maxlen
         self.patience = patience
 
@@ -56,7 +56,7 @@ class NLPHyperModel(HyperModel):
         layer_num_LSTM = hp.Int("LSTM_layer_num", 1, 3)
         layer_num_dense = hp.Int("Dense_layer_num", 1, 3)
         embed_dim = hp.Int("Embeeded_dim", int(
-            self.maxlen/10), int(self.maxlen/2))
+            self.maxlen/10), int(self.maxlen/5))
 
         layer_in = keras.Input(shape=(None,))
 
@@ -82,10 +82,10 @@ class NLPHyperModel(HyperModel):
         for i in range(layer_num_dense):
             if i == 0:
                 layer_dense = layers.Dense(
-                    hp.Int(f"dense_units_{i}", min_value=50, max_value=150))(layer_LSTM)
+                    hp.Int(f"dense_units_{i}", min_value=50, max_value=150), activation = hp.Choice(f"Dense_activations_{i}", ["relu","sigmoid","selu"]))(layer_LSTM)
             else:
                 layer_dense = layers.Dense(
-                    hp.Int(f"dense_units_{i}", min_value=50, max_value=150))(layer_dense)
+                    hp.Int(f"dense_units_{i}", min_value=50, max_value=150),activation = hp.Choice(f"Dense_activations_{i}", ["relu","sigmoid","selu"]))(layer_dense)
 
         layer_out = layers.Dense(
             self.outp_shape, activation="softmax")(layer_dense)
@@ -107,7 +107,7 @@ class NLPHyperModel(HyperModel):
             earlystopping = EarlyStopping(
                 monitor='val_loss', mode='min', verbose=1, patience=self.patience)
             reduce_lr = ReduceLROnPlateau(
-                monitor='val_loss', factor=0.2, patience=5, min_lr=0.001)
+                monitor='val_loss', factor=0.1, patience=2, min_lr=0.00001)
 
             return model.fit(callbacks=[earlystopping, reduce_lr], epochs=self.epochs, *args, **kwargs)
         else:

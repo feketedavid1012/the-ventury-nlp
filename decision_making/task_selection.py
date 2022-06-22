@@ -43,7 +43,8 @@ if __name__ == "__main__":
         - There are 24 labels, but some of them have less then 2% occurence, thus they can handled as outliers.
         - If they are handled as outliers there will remain only 15 categories
         - In laboratory conditions the title could be used during the training, because 607 times the category shows up in the title. In practice, I wouldn't use it.
-        - There is a "Blond" and a "Blonde" category, I would merge them, it looks like a typo
+        - There is a "Blond" and a "Blonde" category, I would merge them, it looks like a typo. Same with Yo Mama and Yo Moma.
+        - I would undersample categories which has 900 + occurance
         
         Preprocessing steps:
         - Data filtering based on label outliers
