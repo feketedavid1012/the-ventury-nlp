@@ -16,27 +16,34 @@ def create_splits(data_path: str = "E:\\Austria\\the-ventury-nlp\\data\\cleaned\
     """
     data = pd.read_csv(data_path)
     data = shuffle(data)
-    categorical = pd.DataFrame(data["category"],columns=["category"])
+    if "classification" in data_path:
+        name = "_classification"
+        output = pd.DataFrame(data["category"], columns=["category"])
+    elif "regression" in data_path:
+        name = "_regression"
+        output = pd.DataFrame(data["score"], columns=["score"])
     if title_needed:
         inputs = data[["body", "title"]]
     else:
-        inputs = pd.DataFrame(data["body"],columns=["body"])
+        inputs = pd.DataFrame(data["body"], columns=["body"])
     body_train, body_test, category_train, category_test = splitting(
-        inputs, categorical, test_size=0.3, random_state=42)
+        inputs, output, test_size=0.3, random_state=42)
     body_validation, body_test, category_validation, category_test = splitting(
         body_test, category_test, test_size=0.5, random_state=42)
 
-    train_set=pd.concat([body_train,category_train],axis=1)
-    validation_set=pd.concat([body_validation,category_validation],axis=1)
-    test_set=pd.concat([body_test,category_test],axis=1)
-    
-    datas=[train_set,validation_set,test_set]
+    train_set = pd.concat([body_train, category_train], axis=1)
+    validation_set = pd.concat([body_validation, category_validation], axis=1)
+    test_set = pd.concat([body_test, category_test], axis=1)
+
+    datas = [train_set, validation_set, test_set]
     splits = ["train", "validation", "test"]
     for idx, val in enumerate(splits):
         if "stopping_worded" in data_path:
-            filepath = os.path.join(path_to_save, val + "_title_" + str(title_needed)+ "_stopping_worded_" + ".pickle")
+            filepath = os.path.join(path_to_save, val + "_title_" +
+                                    str(title_needed) + "_stopping_worded" + name + ".pickle")
         else:
-            filepath = os.path.join(path_to_save, val + "_title_" + str(title_needed) + ".pickle")
+            filepath = os.path.join(
+                path_to_save, val + "_title_" + str(title_needed) + name + ".pickle")
         save_pickle(filepath, datas[idx])
 
 def save_pickle(filepath: str, variable_to_save: Any):
@@ -45,11 +52,10 @@ def save_pickle(filepath: str, variable_to_save: Any):
     Args:
         filepath (str): Path to save
         variable_to_save (Any): Variable to save
-    """    
-    with open(filepath, 'wb') as handle:
-            pickle.dump(variable_to_save, handle,
-                        protocol=pickle.HIGHEST_PROTOCOL)
 
+    with open(filepath, 'wb') as handle:
+        pickle.dump(variable_to_save, handle,
+                    protocol=pickle.HIGHEST_PROTOCOL)
 
 def splitting(inputs: pd.DataFrame, outputs: pd.DataFrame, *args, **kwargs) -> tuple:
     """Splitting data into to parts.
@@ -67,4 +73,5 @@ def splitting(inputs: pd.DataFrame, outputs: pd.DataFrame, *args, **kwargs) -> t
 
 
 if __name__ == "__main__":
-    create_splits("E:\\Austria\\the-ventury-nlp\\data\\cleaned\\cleaned_classification_dropped_outliers_True.csv")
+    create_splits(
+        "E:\\Austria\\the-ventury-nlp\\data\\cleaned\\cleaned_regression_dropped_outliers_False_stopping_worded.csv")

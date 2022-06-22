@@ -4,7 +4,6 @@ from math import ceil
 import numpy as np
 import pandas as pd
 from typing import Optional, Any
-import tensorflow_text as tf_text
 from tensorflow import expand_dims
 from tensorflow.keras.utils import Sequence
 from tensorflow.keras.preprocessing.text import Tokenizer
@@ -26,16 +25,19 @@ class NLP_Sequencer(Sequence):
         """        
         data = NLP_Sequencer.read_pickle(data_path).dropna()
         self.input_body = data["body"]
-        self.output_category = data["category"].dropna()
         self.batch_size = batch_size
         self.maxlen = maxlen
 
         self.tokenizer = NLP_Sequencer.read_pickle(tokenizer_path)
-            
-        labelencoder= NLP_Sequencer.read_pickle(encoder_path) 
-        self.transformed_outputs = labelencoder.transform(self.output_category)
-        self.output_shape = self.transformed_outputs.shape[-1]
         self.tokenize_inputs()
+        if "classification" in data_path:
+            labelencoder= NLP_Sequencer.read_pickle(encoder_path) 
+            self.output_category = data["category"]
+            self.transformed_outputs = labelencoder.transform(self.output_category)
+        elif "regression" in data_path:
+            self.transformed_outputs = data["score"].values.reshape(-1,1)[:20000,:]
+            self.transformed_inputs = self.transformed_inputs[:20000,:]
+        self.output_shape = self.transformed_outputs.shape[-1]
         
         
     @staticmethod
