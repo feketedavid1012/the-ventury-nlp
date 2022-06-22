@@ -58,6 +58,7 @@ class NLPHyperModel(HyperModel):
         embed_dim = hp.Int("Embeeded_dim", int(
             self.maxlen/10), int(self.maxlen/5))
 
+
         layer_in = keras.Input(shape=(None,))
 
         embedding = layers.Embedding(self.maxlen, embed_dim)(layer_in)
