@@ -67,4 +67,4 @@ def splitting(inputs: pd.DataFrame, outputs: pd.DataFrame, *args, **kwargs) -> t
 
 
 if __name__ == "__main__":
-    create_splits("E:\\Austria\\the-ventury-nlp\\data\\cleaned\\cleaned_classification_stopping_worded.csv")
+    create_splits("E:\\Austria\\the-ventury-nlp\\data\\cleaned\\cleaned_classification_dropped_outliers_True.csv")
