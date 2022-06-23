@@ -46,7 +46,6 @@ def create_splits(data_path: str = "E:\\Austria\\the-ventury-nlp\\data\\cleaned\
                 path_to_save, val + "_title_" + str(title_needed) + name + ".pickle")
         save_pickle(filepath, datas[idx])
 
-
 def save_pickle(filepath: str, variable_to_save: Any):
     """Saving variables to pickle
 
@@ -58,6 +57,9 @@ def save_pickle(filepath: str, variable_to_save: Any):
         pickle.dump(variable_to_save, handle,
                     protocol=pickle.HIGHEST_PROTOCOL)
 
+    with open(filepath, 'wb') as handle:
+        pickle.dump(variable_to_save, handle,
+                    protocol=pickle.HIGHEST_PROTOCOL)
 
 def splitting(inputs: pd.DataFrame, outputs: pd.DataFrame, *args, **kwargs) -> tuple:
     """Splitting data into to parts.

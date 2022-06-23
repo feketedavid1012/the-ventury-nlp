@@ -32,6 +32,7 @@ def filter_strings(classification_dataset: str, stopping_word: bool = False, dat
         dataset["score"] = minmaxscaling(
             dataset["score"].values.reshape(-1, 1))
         classification_dataset = df_to_json(dataset)
+
     for dic in classification_dataset:
         for key, vals in dic.items():
             if key != "id" and key != "score":
@@ -40,6 +41,7 @@ def filter_strings(classification_dataset: str, stopping_word: bool = False, dat
                 else:
                     dic[key] = stopping_words(
                         re.sub(r"[^a-zA-Z0-9']+", " ", vals).lower())
+
                 if key == "category":
                     if dic[key] == "blonde":
                         dic[key] = "blond"

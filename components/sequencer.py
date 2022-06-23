@@ -25,7 +25,6 @@ class NLP_Sequencer(Sequence):
         """        
         data = NLP_Sequencer.read_pickle(data_path).dropna()
         self.input_body = data["body"]
-        
         self.batch_size = batch_size
         self.maxlen = maxlen
 
@@ -39,7 +38,6 @@ class NLP_Sequencer(Sequence):
             self.transformed_outputs = data["score"].values.reshape(-1,1)[:20000,:]
             self.transformed_inputs = self.transformed_inputs[:20000,:]
         self.output_shape = self.transformed_outputs.shape[-1]
-        
         
         
     @staticmethod

@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-
 def save_plot(path: str, history: Any, acc_or_loss: str = "accuracy"):
     """Plot the given history.
 
@@ -51,7 +50,6 @@ def plot_data(original_inverted: np.ndarray, predicted_inverted: np.ndarray, pat
     plt.plot(original_inverted[:nb_of_data])
     plt.plot(predicted_inverted[:nb_of_data])
     plt.savefig(path)
-
 
 def get_mse(original_inverted: np.ndarray, predicted_inverted: np.ndarray) -> float:
     """Calculates MSE.

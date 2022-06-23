@@ -101,6 +101,7 @@ class NLPHyperModel(HyperModel):
         else:
             layer_out = layers.Dense(
                 self.outp_shape, activation=hp.Choice(f"Output_activations", ["relu", "sigmoid", "linear"]))(layer_dense)
+
         return layer_in, layer_out
 
     def fit(self, hp, model, refit=False, *args, **kwargs):
