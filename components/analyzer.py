@@ -51,3 +51,16 @@ def plot_data(original_inverted: np.ndarray, predicted_inverted: np.ndarray, pat
     plt.plot(original_inverted[:nb_of_data])
     plt.plot(predicted_inverted[:nb_of_data])
     plt.savefig(path)
+
+
+def get_mse(original_inverted: np.ndarray, predicted_inverted: np.ndarray) -> float:
+    """Calculates MSE.
+
+    Args:
+        original_inverted (np.ndarray): Original database.
+        predicted_inverted (np.ndarray): Prediction.
+
+    Returns:
+        float: MSE
+    """
+    return np.square(original_inverted-predicted_inverted).mean()

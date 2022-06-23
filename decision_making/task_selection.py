@@ -1,6 +1,7 @@
 import json
 from decision_making.analyzation import analyze_regression, analyze_classification
 
+
 def read_json(filepath: str):
     """Read json file
 
@@ -9,34 +10,34 @@ def read_json(filepath: str):
 
     Returns:
         str: Return readed json object
-    """    
+    """
     dataset = open(filepath)
     return json.load(dataset)
 
-def run_analyze(cls_filepath: str="./data/raw/classification.json", reg_filepath: str="./data/raw/regression.json"):
+
+def run_analyze(cls_filepath: str = "./data/raw/classification.json", reg_filepath: str = "./data/raw/regression.json"):
     """Generate statistics about databases
 
     Args:
         cls_filepath (str, optional): Filepath to classification json database. Defaults to "./data/classification.json".
         reg_filepath (str, optional): Filepath to regression json database. Defaults to "./data/regression.json".
-    
+
     Returns:
         tuple: Statistics about classification and regression.
-    """    
+    """
     classification_dataset = read_json(cls_filepath)
     regression_dataset = read_json(reg_filepath)
 
     cls_statistics = analyze_classification(classification_dataset)
     reg_statistics = analyze_regression(regression_dataset)
-    
+
     return cls_statistics, reg_statistics
 
 
 if __name__ == "__main__":
 
     cls_statistics, reg_statistics = run_analyze()
-    
-    
+
     """
     Classification result:
         - Enough data (over 10k)
