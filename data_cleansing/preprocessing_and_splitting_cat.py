@@ -75,6 +75,23 @@ def splitting(inputs: pd.DataFrame, outputs: pd.DataFrame, *args, **kwargs) -> t
         inputs, outputs, *args, **kwargs)
     return body_train, body_test, category_train, category_test
 
+def read_yaml(filepath: str="E:\\Austria\\the-ventury-nlp\\config.yaml", model_type: str="classification")->str:
+    """Read configuration file.
+
+    Args:
+        filepath (str, optional): Path to config. Defaults to "E:\Austria\the-ventury-nlp\config.yaml".
+        model_type (str, optional): Model type. Defaults to "classification".
+
+    Returns:
+        str: Configuration based on model_type.
+    """    
+    import yaml
+    with open(filepath, 'r') as file:
+        config = yaml.safe_load(file)[model_type]
+    
+    return config
+    
+
 
 if __name__ == "__main__":
     create_splits(
