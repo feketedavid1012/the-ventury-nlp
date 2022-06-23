@@ -5,21 +5,21 @@ import os
 from keras_tuner import Hyperband
 from components.tuner import NLPHyperModel
 from components.analyzer import save_plot, save_confusion_matrix
-from data_cleansing.preprocessing_and_splitting_cat import save_pickle
+from data_cleansing.preprocessing_and_splitting_cat import save_pickle, read_yaml
 
 
-CREATE_TOKENIZER = True
-FULL_PATH = "E:\\Austria\\the-ventury-nlp\\data\\cleaned\\cleaned_classification_dropped_outliers_False_stopping_worded.csv"
+config = read_yaml(model_type="classification")
+CREATE_TOKENIZER = config["CREATE_TOKENIZER"]
+CREATE_ENCODER = config["CREATE_ENCODER"]
+FULL_PATH = config["FULL_PATH"]
 
-CREATE_ENCODER = True
+MAXLEN = config["MAXLEN"]
+EPOCHS = config["EPOCHS"]
+MAX_EPOCHS = config["MAX_EPOCHS"]
+PATIENCE = config["PATIENCE"]
 
-MAXLEN = 1000
-EPOCHS = 20
-MAX_EPOCHS = 8
-PATIENCE = 3
-
-MODEL_PATH = "E:\\Austria\\the-ventury-nlp\\data\\model\\NLP_CLASSIFICATION"
-MODEL_FOLDER = "best_classification_stopping_worded"
+MODEL_PATH = config["MODEL_PATH"]
+MODEL_FOLDER = config["MODEL_FOLDER"]
 
 if CREATE_TOKENIZER:
     NLP_Sequencer.create_tokenizer(pd.read_csv(FULL_PATH)["body"].astype(str))

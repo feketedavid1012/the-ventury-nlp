@@ -4,20 +4,21 @@ import scipy.stats
 import os
 from keras_tuner import Hyperband
 from components.tuner import NLPHyperModel
-from data_cleansing.preprocessing_and_splitting_cat import save_pickle
+from data_cleansing.preprocessing_and_splitting_cat import save_pickle, read_yaml
 from components.analyzer import save_plot, plot_data, get_mse
 
 
-CREATE_TOKENIZER = True
-FULL_PATH = "E:\\Austria\\the-ventury-nlp\\data\\cleaned\\cleaned_regression_dropped_outliers_False.csv"
+config = read_yaml(model_type="regression")
+CREATE_TOKENIZER = config["CREATE_TOKENIZER"]
+FULL_PATH = config["FULL_PATH"]
 
-MAXLEN = 500
-EPOCHS = 20
-MAX_EPOCHS = 3
-PATIENCE = 2
+MAXLEN = config["MAXLEN"]
+EPOCHS = config["EPOCHS"]
+MAX_EPOCHS = config["MAX_EPOCHS"]
+PATIENCE = config["PATIENCE"]
 
-MODEL_PATH = "E:\\Austria\\the-ventury-nlp\\data\\model\\NLP_REGRESSION"
-MODEL_FOLDER = "best_regression"
+MODEL_PATH = config["MODEL_PATH"]
+MODEL_FOLDER = config["MODEL_FOLDER"]
 
 if CREATE_TOKENIZER:
     NLP_Sequencer.create_tokenizer(pd.read_csv(FULL_PATH)["body"].astype(str))

@@ -2,21 +2,21 @@ from sklearn.neighbors import KNeighborsRegressor
 from components.sequencer import NLP_Sequencer
 import pandas as pd
 import os
-import matplotlib.pyplot as plt
 import scipy.stats
 from components.analyzer import plot_data, get_mse
-from data_cleansing.preprocessing_and_splitting_cat import save_pickle
+from data_cleansing.preprocessing_and_splitting_cat import save_pickle, read_yaml
 
-CREATE_TOKENIZER = True
-FULL_PATH = "E:\\Austria\\the-ventury-nlp\\data\\cleaned\\cleaned_regression_dropped_outliers_False.csv"
+config = read_yaml(model_type="regression")
+CREATE_TOKENIZER = config["CREATE_TOKENIZER"]
+FULL_PATH = config["FULL_PATH"]
 
-MAXLEN = 1000
-EPOCHS = 20
-MAX_EPOCHS = 5
-PATIENCE = 3
+MAXLEN = config["MAXLEN"]
+EPOCHS = config["EPOCHS"]
+MAX_EPOCHS = config["MAX_EPOCHS"]
+PATIENCE = config["PATIENCE"]
 
-MODEL_PATH = "E:\\Austria\\the-ventury-nlp\\data\\model\\NLP_REGRESSION"
-MODEL_FOLDER = "best_regression_KN"
+MODEL_PATH = config["MODEL_PATH"]
+MODEL_FOLDER = config["MODEL_FOLDER"]
 
 if CREATE_TOKENIZER:
     NLP_Sequencer.create_tokenizer(pd.read_csv(FULL_PATH)["body"].astype(str))
