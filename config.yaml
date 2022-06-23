@@ -1,0 +1,25 @@
+classification:
+  CREATE_TOKENIZER: True
+  FULL_PATH: "E:\\Austria\\the-ventury-nlp\\data\\cleaned\\cleaned_classification_dropped_outliers_True.csv"
+
+  CREATE_ENCODER: True
+
+  MAXLEN: 1000
+  EPOCHS: 20
+  MAX_EPOCHS: 8
+  PATIENCE: 3
+
+  MODEL_PATH: "E:\\Austria\\the-ventury-nlp\\data\\model\\NLP_CLASSIFICATION"
+  MODEL_FOLDER: "best_classification_"
+
+regression: 
+  CREATE_TOKENIZER: True
+  FULL_PATH: "E:\\Austria\\the-ventury-nlp\\data\\cleaned\\cleaned_regression_dropped_outliers_False.csv"
+
+  MAXLEN: 1000
+  EPOCHS: 20
+  MAX_EPOCHS: 8
+  PATIENCE: 3
+
+  MODEL_PATH: "E:\\Austria\\the-ventury-nlp\\data\\model\\NLP_REGRESSION"
+  MODEL_FOLDER: "best_regression_"
