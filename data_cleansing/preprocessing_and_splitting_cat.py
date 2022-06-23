@@ -52,6 +52,10 @@ def save_pickle(filepath: str, variable_to_save: Any):
     Args:
         filepath (str): Path to save
         variable_to_save (Any): Variable to save
+    """
+    with open(filepath, 'wb') as handle:
+        pickle.dump(variable_to_save, handle,
+                    protocol=pickle.HIGHEST_PROTOCOL)
 
     with open(filepath, 'wb') as handle:
         pickle.dump(variable_to_save, handle,

@@ -30,17 +30,17 @@ class NLPHyperModel(HyperModel):
         Returns:
             keras.Model: Compiled model.
         """
-        if self.outp_shape>2:
+        if self.outp_shape > 2:
             layer_in, layer_out = self._get_inp_outp_layer(hp=hp)
             model = Model(inputs=layer_in, outputs=layer_out)
             model.compile(
                 optimizer="adam",
                 loss="categorical_crossentropy",
                 metrics=["accuracy",
-                        metrics.FalsePositives(),
-                        metrics.FalseNegatives(),
-                        metrics.Precision(),
-                        metrics.Recall(), f1_m],
+                         metrics.FalsePositives(),
+                         metrics.FalseNegatives(),
+                         metrics.Precision(),
+                         metrics.Recall(), f1_m],
             )
         else:
             layer_in, layer_out = self._get_inp_outp_layer(hp=hp)
@@ -48,7 +48,7 @@ class NLPHyperModel(HyperModel):
             model.compile(
                 optimizer="adam",
                 loss="mse",
-                metrics=["cosine_similarity","mae"],
+                metrics=["cosine_similarity", "mae"],
             )
         model.summary()
         return model
@@ -91,16 +91,17 @@ class NLPHyperModel(HyperModel):
         for i in range(layer_num_dense):
             if i == 0:
                 layer_dense = layers.Dense(
-                    hp.Int(f"dense_units_{i}", min_value=50, max_value=150), activation = hp.Choice(f"Dense_activations_{i}", ["relu","sigmoid","selu"]))(layer_LSTM)
+                    hp.Int(f"dense_units_{i}", min_value=50, max_value=150), activation=hp.Choice(f"Dense_activations_{i}", ["relu", "sigmoid", "selu"]))(layer_LSTM)
             else:
                 layer_dense = layers.Dense(
-                    hp.Int(f"dense_units_{i}", min_value=50, max_value=150),activation = hp.Choice(f"Dense_activations_{i}", ["relu","sigmoid","selu"]))(layer_dense)
+                    hp.Int(f"dense_units_{i}", min_value=50, max_value=150), activation=hp.Choice(f"Dense_activations_{i}", ["relu", "sigmoid", "selu"]))(layer_dense)
         if self.outp_shape > 2:
             layer_out = layers.Dense(
                 self.outp_shape, activation="softmax")(layer_dense)
         else:
             layer_out = layers.Dense(
-                self.outp_shape,activation = hp.Choice(f"Output_activations", ["relu","sigmoid","linear"]))(layer_dense)
+                self.outp_shape, activation=hp.Choice(f"Output_activations", ["relu", "sigmoid", "linear"]))(layer_dense)
+
         return layer_in, layer_out
 
     def fit(self, hp, model, refit=False, *args, **kwargs):

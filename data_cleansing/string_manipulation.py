@@ -32,7 +32,7 @@ def filter_strings(classification_dataset: str, stopping_word: bool = False, dat
         dataset["score"] = minmaxscaling(
             dataset["score"].values.reshape(-1, 1))
         classification_dataset = df_to_json(dataset)
-        
+
     for dic in classification_dataset:
         for key, vals in dic.items():
             if key != "id" and key != "score":
@@ -47,7 +47,6 @@ def filter_strings(classification_dataset: str, stopping_word: bool = False, dat
                         dic[key] = "blond"
                     elif dic[key] == "yo mama":
                         dic[key] = "yo momma"
-
             sentence_length.append({"length": len(dic["body"])})
 
     if stopping_word:
@@ -132,7 +131,6 @@ def drop_outlier_categories(classification_dataset: str, important_features: lis
     "Gross",
     "Medical"
 ]) -> str:
-
     """Drop categories which can be outliers
 
     Args:
